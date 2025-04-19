@@ -88,5 +88,6 @@ func WhoAmI(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(map[string]string{"error": "Not logged in"})
 		return
 	}
+	
 	json.NewEncoder(w).Encode(map[string]string{"email": cookie.Value})
 }
