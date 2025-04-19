@@ -1,4 +1,4 @@
-module secretbox
+module "github.com/lamdaloop/securely"
 
 go 1.23.3
 

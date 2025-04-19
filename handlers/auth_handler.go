@@ -19,7 +19,7 @@ var (
 		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email"},
 		Endpoint:     google.Endpoint,
 	}
-	stateToken = "secretbox-oauth-state"
+	stateToken = "securely-oauth-state"
 )
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
