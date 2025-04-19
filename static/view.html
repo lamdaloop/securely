@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SecretBox – View Secret</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="auth-bar">
+    <div class="auth-status">
+      <span>🔐</span>
+      <span id="auth-user-text">Checking login...</span>
+    </div>
+    <div class="auth-bar-buttons">
+      <button id="loginBtn" class="btn" onclick="login()">Login</button>
+      <button id="logoutBtn" class="btn" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="wrapper">
+    <h1>📥 View Your Secret</h1>
+    <section class="card">
+      <!-- Secret Output -->
+      <div id="secretContent" class="mb-1">
+        <p>⏳ Loading secret...</p>
+      </div>
+
+      <!-- Password Form (shown only if required) -->
+      <form id="passwordForm" class="hidden" onsubmit="return submitPassword(event)">
+        <input
+          id="passwordInput"
+          type="text"
+          placeholder="Enter password to unlock"
+          autocomplete="off"
+        />
+        <button class="btn full-width" type="submit">🔓 Unlock</button>
+      </form>
+      
+
+      <!-- Error Message Area -->
+      <div id="retrieveResponse" class="hidden"></div>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>

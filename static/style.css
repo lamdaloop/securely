@@ -1,0 +1,285 @@
+:root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --input: #0d1117;
+    --fg: #c9d1d9;
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+    --error: #ef4444;
+    --border: #30363d;
+    --radius: 10px;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header.auth-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #161b22;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .auth-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--input);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: #93c5fd;
+  }
+  
+  .auth-bar .btn {
+    margin-left: 1rem;
+  }
+  
+  .btn {
+    background: var(--accent);
+    color: white;
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 0.9rem;
+  }
+  
+  .btn:hover {
+    background: var(--accent-hover);
+  }
+  
+  main.wrapper {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  main.wrapper h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .row {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  textarea,
+  input[type="text"],
+  input[type="number"] {
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    color: var(--fg);
+    font-size: 0.95rem;
+    width: 100%;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+  
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .checkbox input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  
+  .expiry-options {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  
+  .expiry-btn {
+    background: var(--input);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex: 1 1 45%;
+    text-align: center;
+  }
+  
+  .expiry-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent-hover);
+  }
+  
+  pre {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #0d1117;
+    color: #f1f1f1;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  
+  .hidden {
+    display: none !important;
+  }
+  
+  /* Layout for split left/right secret input and form */
+  .card-split {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .card-left {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-left textarea {
+    flex: 1;
+    min-height: 300px;
+    font-size: 1rem;
+  }
+  
+  .card-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+  
+  .card-right input,
+  .card-right .expiry-options,
+  .card-right .btn,
+  .card-right pre {
+    width: 100%;
+  }
+
+  .card-right .checkbox {
+    align-items: center;
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+  
+  /* Responsive layout for smaller screens */
+  @media (max-width: 768px) {
+    .row {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  
+    .auth-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  
+    .card-split {
+      flex-direction: column;
+    }
+  
+    .card-right {
+      gap: 1rem;
+    }
+  }
+  .clean-layout {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .card-left {
+    background: var(--card);
+  }
+  
+  .section-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #999;
+  }
+  
+  .card-right .checkbox {
+    font-size: 0.85rem;
+    color: #aaa;
+  }
+  
+  .card-right .file-btn {
+    background: #2c2c2c;
+    color: #ccc;
+    border: 1px solid var(--border);
+    cursor: not-allowed;
+  }
+  
+  .card-right .create-btn {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 0.95rem;
+  }
+  
+  textarea#secretInput {
+    font-size: 1rem;
+    padding: 1rem;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    color: var(--fg);
+    border-radius: var(--radius);
+  }
+  

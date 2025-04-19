@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>SecretBox – Create Secret</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+    <header class="auth-bar">
+      <div class="auth-status">
+        <span>🔐</span>
+        <span id="auth-user-text">Checking login...</span>
+      </div>
+      <div class="auth-bar-buttons">
+        <button id="loginBtn" class="btn" onclick="login()">Login</button>
+        <button id="logoutBtn" class="btn" onclick="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="wrapper">
+      <h1>📝 Create a Secret</h1>
+      <section class="card card-split clean-layout">
+        <!-- Left: Textarea -->
+        <div class="card-left">
+          <textarea id="secretInput" placeholder="Type your note here..."></textarea>
+        </div>
+      
+        <!-- Right: Controls -->
+        <div class="card-right">
+          <input id="passwordInput" type="text" placeholder="Note password..." />
+      
+          <label class="section-label">Expiration delay</label>
+          <div class="expiry-options">
+            <button type="button" class="expiry-btn" data-minutes="60">1 hour</button>
+            <button type="button" class="expiry-btn active" data-minutes="1440">1 day</button>
+            <button type="button" class="expiry-btn" data-minutes="10080">1 week</button>
+            <button type="button" class="expiry-btn" data-minutes="43200">1 month</button>
+          </div>
+          <input id="expiryInput" type="hidden" value="1440" />
+      
+          <label class="checkbox">
+            <input type="checkbox" id="oneTimeCheckbox" />
+            <span>Delete the note after reading</span>
+          </label>
+      
+      
+          <button class="btn create-btn full-width" onclick="submitSecret()">➕ Create note</button>
+      
+          <pre id="createResponse" class="hidden"></pre>
+        </div>
+      </section>
+      
+      
+    </main>
+
+  <script src="/static/script.js"></script>
+</body>
+
+</html>
