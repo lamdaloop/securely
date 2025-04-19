@@ -84,9 +84,18 @@ func HandleSecret(w http.ResponseWriter, r *http.Request) {
 }
 
 func HandleRetrieveSecret(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
 	id := filepath.Base(r.URL.Path)
+
 	var req retrieveSecretRequest
-	_ = json.NewDecoder(r.Body).Decode(&req)
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
 
 	secret, err := storage.LoadSecret(id)
 	if err != nil {
@@ -129,6 +138,7 @@ func HandleRetrieveSecret(w http.ResponseWriter, r *http.Request) {
 		CreatedBy: secret.CreatedBy,
 	})
 }
+
 
 func getUserEmail(r *http.Request) string {
 	cookie, err := r.Cookie("user_email")

@@ -1,14 +1,27 @@
 :root {
-    --bg: #0d1117;
-    --card: #161b22;
-    --input: #0d1117;
-    --fg: #c9d1d9;
-    --accent: #3b82f6;
-    --accent-hover: #2563eb;
-    --error: #ef4444;
-    --border: #30363d;
-    --radius: 10px;
-  }
+  --bg: #0d1117;
+  --card: #161b22;
+  --input: #0d1117;
+  --fg: #c9d1d9;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --error: #ef4444;
+  --border: #30363d;
+  --radius: 10px;
+}
+
+/* Light theme overrides */
+body.light-theme {
+  --bg: #f9f9f9;
+  --card: #ffffff;
+  --input: #ffffff;
+  --fg: #111;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --error: #dc2626;
+  --border: #d1d5db;
+}
+
   
   * {
     box-sizing: border-box;
@@ -281,5 +294,26 @@
     border: 1px solid var(--border);
     color: var(--fg);
     border-radius: var(--radius);
+  }
+  
+
+  .auth-bar-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  
+  .auth-bar-buttons .btn,
+  .auth-bar-buttons .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 600px) {
+    .auth-bar-buttons {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
   

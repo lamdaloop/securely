@@ -13,6 +13,10 @@
       <span id="auth-user-text">Checking login...</span>
     </div>
     <div class="auth-bar-buttons">
+      <div class="theme-toggle">
+        <button class="btn" onclick="toggleTheme()" title="Toggle theme">🌓 Theme</button>
+      </div>
+      
       <button id="loginBtn" class="btn" onclick="login()">Login</button>
       <button id="logoutBtn" class="btn" onclick="logout()">Logout</button>
     </div>
@@ -26,11 +30,11 @@
         <p>⏳ Loading secret...</p>
       </div>
 
-      <!-- Password Form (shown only if required) -->
-      <form id="passwordForm" class="hidden" onsubmit="return submitPassword(event)">
+      <!-- Password Form -->
+      <form id="passwordForm" class="hidden" onsubmit="return handlePasswordSubmit(event)">
         <input
           id="passwordInput"
-          type="text"
+          type="password"
           placeholder="Enter password to unlock"
           autocomplete="off"
         />
@@ -43,6 +47,90 @@
     </section>
   </main>
 
-  <script src="/static/script.js"></script>
+  <script>
+    const secretID = window.location.pathname.split("/").pop();
+    const contentDiv = document.getElementById("secretContent");
+    const passwordForm = document.getElementById("passwordForm");
+    const passwordInput = document.getElementById("passwordInput");
+    const responseDiv = document.getElementById("retrieveResponse");
+  
+    function toggleTheme() {
+      const body = document.body;
+      const isLight = body.classList.toggle('light-theme');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+  
+    function handlePasswordSubmit(e) {
+      e.preventDefault();
+      const password = passwordInput.value.trim();
+      if (!password) return;
+      fetchSecret(password);
+    }
+  
+    async function fetchSecret(password = "") {
+      try {
+        const res = await fetch(`/api/retrieve/${secretID}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+        });
+  
+        if (res.ok) {
+          const data = await res.json();
+          contentDiv.innerHTML = `
+            <p>✅ <strong>Message:</strong></p>
+            <pre>${data.message}</pre>
+            <p><strong>Created By:</strong> ${data.created_by}</p>
+          `;
+          passwordForm.classList.add("hidden");
+          responseDiv.classList.add("hidden");
+        } else if (res.status === 401) {
+          passwordForm.classList.remove("hidden");
+          passwordInput.focus();
+          responseDiv.classList.remove("hidden");
+          responseDiv.textContent = "🔒 This secret is password protected.";
+          contentDiv.innerHTML = "<p>🔐 Please enter password to view the secret.</p>";
+        } else if (res.status === 410) {
+          contentDiv.innerHTML = "<p>⌛ This secret has expired.</p>";
+        } else if (res.status === 404) {
+          contentDiv.innerHTML = "<p>❌ Secret not found.</p>";
+        } else {
+          contentDiv.innerHTML = "<p>⚠️ Failed to load secret.</p>";
+        }
+      } catch (err) {
+        console.error(err);
+        contentDiv.innerHTML = "<p>⚠️ Network error while fetching secret.</p>";
+      }
+    }
+  
+    function login() {
+      window.location.href = "/login";
+    }
+  
+    function logout() {
+      document.cookie = "user_email=; Max-Age=0; path=/;";
+      location.reload();
+    }
+  
+    function getUserEmailFromCookie() {
+      const match = document.cookie.match(/(^| )user_email=([^;]+)/);
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+  
+    window.onload = function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+      }
+  
+      const user = getUserEmailFromCookie();
+      document.getElementById("auth-user-text").textContent = user
+        ? `Logged in as ${user}`
+        : "Not logged in";
+  
+      fetchSecret();
+    };
+  </script>
+  
 </body>
 </html>
