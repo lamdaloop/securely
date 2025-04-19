@@ -173,3 +173,16 @@ document.addEventListener("DOMContentLoaded", () => {
     setupExpiryButtons?.();
     parseUrlAndLoadSecret();
 });
+
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light-theme');
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+
+window.onload = function () {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light-theme');
+  }
+};

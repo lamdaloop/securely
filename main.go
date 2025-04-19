@@ -42,6 +42,8 @@ func main() {
 	http.HandleFunc("/auth/me", handlers.WhoAmI)
 	http.HandleFunc("/api/secret", handlers.RequireAuth(handlers.HandleSecret))
 	http.HandleFunc("/api/secret/", handlers.RequireAuth(handlers.HandleRetrieveSecret))
+	http.HandleFunc("/api/retrieve/", handlers.HandleRetrieveSecret)
+
 
 	// Serve static files
 	fs := http.FileServer(http.Dir("./static"))
