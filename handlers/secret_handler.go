@@ -5,12 +5,12 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
-	"time"
 	"strings"
+	"time"
 
-	"secretbox/models"
-	"secretbox/storage"
-	"secretbox/utils"
+	"github.com/lamdaloop/securely/models"
+	"github.com/lamdaloop/securely/storage"
+	"github.com/lamdaloop/securely/utils"
 )
 
 type createSecretRequest struct {

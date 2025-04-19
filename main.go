@@ -4,10 +4,11 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"secretbox/handlers"
-	"secretbox/utils"
-    "strings"
+	"strings"
+
 	"github.com/joho/godotenv"
+	"github.com/lamdaloop/securely/handlers"
+	"github.com/lamdaloop/securely/utils"
 )
 
 func main() {
@@ -28,13 +29,13 @@ func main() {
 
 	// Route handlers
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        if strings.HasPrefix(r.URL.Path, "/secret/") {
-            http.ServeFile(w, r, "static/view.html")
-        } else {
-            http.ServeFile(w, r, "static/index.html")
-        }
-    })
-    
+		if strings.HasPrefix(r.URL.Path, "/secret/") {
+			http.ServeFile(w, r, "static/view.html")
+		} else {
+			http.ServeFile(w, r, "static/index.html")
+		}
+	})
+
 	http.HandleFunc("/auth/login", handlers.LoginHandler)
 	http.HandleFunc("/auth/callback", handlers.CallbackHandler)
 	http.HandleFunc("/auth/logout", handlers.LogoutHandler)
